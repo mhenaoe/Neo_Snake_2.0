@@ -40,3 +40,12 @@ class Cuerpo:
     def crecer(self):
         if self.segmentos:
             self.segmentos.append(self.segmentos[-1])
+
+class Cola:
+    def __init__(self):
+        self.posicion = None
+
+    def actualizar(self, nueva_posicion):
+        self.posicion = nueva_posicion
+
+
