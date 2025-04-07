@@ -28,3 +28,11 @@ class Alimentos:
     def dibujar(self, tablero: int):
         rect = pygame.Rect(self.x * TAM_CELDA, self.y * TAM_CELDA, TAM_CELDA, TAM_CELDA)
         pygame.draw.rect(tablero, self.color, rect)
+
+class Pera(Alimentos):
+        def __init__(self, ancho_tablero: int, alto_tablero: int):
+            super().__init__("Pera", ancho_tablero, alto_tablero, Verde)
+
+class Ciruela(Alimentos):
+        def __init__(self, ancho_tablero: int, alto_tablero: int):
+            super().__init__("Ciruela", ancho_tablero, alto_tablero, Morado)
