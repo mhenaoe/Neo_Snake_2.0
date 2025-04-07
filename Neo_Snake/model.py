@@ -1,9 +1,43 @@
 import pygame
+import random
 import sys
 
-TAMANO_CELDA = 30
+pygame.init()
+
+TAM_CELDA = 30
 ANCHO, ALTO = 600, 600
+ANCHO_CELDAS = ANCHO // TAM_CELDA
+ALTO_CELDAS = ALTO // TAM_CELDA
 FPS = 10
+
+NEGRO = (0, 0, 0)
+VERDE = (0, 128, 0)
+MORADO = (128, 0, 128)
+AMARILLO = (255, 255, 0)
+
+class Alimentos:
+    def __init__(self, tipo: str, ancho_tablero: int, alto_tablero: int, color):
+        self.tipo = tipo
+        self.ancho_tablero = ancho_tablero
+        self.alto_tablero = alto_tablero
+        self.color = color
+        self.nueva_posicion()
+
+    def nueva_posicion(self):
+        self.x = random.randint(0, self.ancho_tablero - 1)
+        self.y = random.randint(0, self.alto_tablero - 1)
+
+    def dibujar(self, superficie):
+        rect = pygame.Rect(self.x * TAM_CELDA, self.y * TAM_CELDA, TAM_CELDA, TAM_CELDA)
+        pygame.draw.rect(superficie, self.color, rect)
+
+class Pera(Alimentos):
+    def __init__(self, ancho_tablero: int, alto_tablero: int):
+        super().__init__("Pera", ancho_tablero, alto_tablero, VERDE)
+
+class Ciruela(Alimentos):
+    def __init__(self, ancho_tablero: int, alto_tablero: int):
+        super().__init__("Ciruela", ancho_tablero, alto_tablero, MORADO)
 
 class Cabeza:
     def __init__(self, x, y):
@@ -28,7 +62,6 @@ class Cabeza:
             self.direccion = nueva_direccion
 
 class Cuerpo:
-
     def __init__(self):
         self.segmentos = []
 
@@ -78,10 +111,7 @@ class Serpiente:
 
         x, y = self.cabeza.posicion
 
-        if not (0 <= x < ancho_celdas and 0 <= y <alto_celdas):
-            return True
-
-        if self.cabeza.posicion in self.cuerpo.segmentos:
+        if not (0 <= x < ancho_celdas and 0 <= y < alto_celdas):
             return True
 
         if self.cabeza.posicion in self.cuerpo.segmentos:
@@ -92,18 +122,19 @@ class Serpiente:
 
         return False
 
-pygame.init()
 pantalla = pygame.display.set_mode((ANCHO, ALTO))
-pygame.display.set_caption("Neo-Snake - Básico")
+pygame.display.set_caption("Neo-Snake con Frutas")
 clock = pygame.time.Clock()
 
 serpiente = Serpiente()
+pera = Pera(ANCHO_CELDAS, ALTO_CELDAS)
+ciruela = Ciruela(ANCHO_CELDAS, ALTO_CELDAS)
 
 corriendo = True
 
 while corriendo:
     clock.tick(FPS)
-    pantalla.fill((0, 0, 0))
+    pantalla.fill(NEGRO)
 
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
@@ -123,16 +154,21 @@ while corriendo:
     x, y = serpiente.cabeza.posicion
     pygame.draw.rect(
         pantalla,
-        (255, 255, 0),
-        pygame.Rect(x * TAMANO_CELDA, y * TAMANO_CELDA, TAMANO_CELDA, TAMANO_CELDA)
+        AMARILLO,
+        pygame.Rect(x * TAM_CELDA, y * TAM_CELDA, TAM_CELDA, TAM_CELDA)
     )
+
 
     for x, y in serpiente.cuerpo.segmentos:
         pygame.draw.rect(
             pantalla,
-            (0, 255, 0),
-            pygame.Rect(x * TAMANO_CELDA, y * TAMANO_CELDA, TAMANO_CELDA, TAMANO_CELDA)
+            VERDE,
+            pygame.Rect(x * TAM_CELDA, y * TAM_CELDA, TAM_CELDA, TAM_CELDA)
         )
+
+
+    pera.dibujar(pantalla)
+    ciruela.dibujar(pantalla)
 
     pygame.display.flip()
 
