@@ -91,3 +91,50 @@ class Serpiente:
             return True
 
         return False
+
+pygame.init()
+pantalla = pygame.display.set_mode((ANCHO, ALTO))
+pygame.display.set_caption("Neo-Snake - Básico")
+clock = pygame.time.Clock()
+
+serpiente = Serpiente()
+
+corriendo = True
+
+while corriendo:
+    clock.tick(FPS)
+    pantalla.fill((0, 0, 0))
+
+    for evento in pygame.event.get():
+        if evento.type == pygame.QUIT:
+            corriendo = False
+        elif evento.type == pygame.KEYDOWN:
+            if evento.key == pygame.K_UP:
+                serpiente.cambiar_direccion("ARRIBA")
+            elif evento.key == pygame.K_DOWN:
+                serpiente.cambiar_direccion("ABAJO")
+            elif evento.key == pygame.K_LEFT:
+                serpiente.cambiar_direccion("IZQUIERDA")
+            elif evento.key == pygame.K_RIGHT:
+                serpiente.cambiar_direccion("DERECHA")
+
+    serpiente.mover()
+
+    x, y = serpiente.cabeza.posicion
+    pygame.draw.rect(
+        pantalla,
+        (255, 255, 0),
+        pygame.Rect(x * TAMANO_CELDA, y * TAMANO_CELDA, TAMANO_CELDA, TAMANO_CELDA)
+    )
+
+    for x, y in serpiente.cuerpo.segmentos:
+        pygame.draw.rect(
+            pantalla,
+            (0, 255, 0),
+            pygame.Rect(x * TAMANO_CELDA, y * TAMANO_CELDA, TAMANO_CELDA, TAMANO_CELDA)
+        )
+
+    pygame.display.flip()
+
+pygame.quit()
+sys.exit()
