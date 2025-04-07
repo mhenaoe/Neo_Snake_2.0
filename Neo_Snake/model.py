@@ -16,7 +16,7 @@ ALTO_CELDAS = ANCHO_TABLERO // TAM_CELDA
 
 tablero = pygame.display.set_mode((ANCHO_TABLERO, ALTO_TABLERO))
 
-
+Negro = (0, 0, 0)
 Verde = (0, 128, 0)
 Morado = (128, 0, 128)
 
@@ -45,14 +45,17 @@ class Ciruela(Alimentos):
 Pera = Pera(ANCHO_CELDAS, ALTO_CELDAS)
 Ciruela = Ciruela(ANCHO_CELDAS, ALTO_CELDAS)
 
-run=True
+run = True
+
 while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: run = False
 
-tablero.fill((0, 0, 0))
+tablero.fill(Negro)
+
 Pera.dibujar(tablero)
 Ciruela.dibujar(tablero)
+
 pygame.display.flip()
 
 pygame.quit()
