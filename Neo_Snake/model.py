@@ -10,7 +10,7 @@ ANCHO_CELDAS = ANCHO_TABLERO // TAM_CELDA
 ALTO_CELDAS = ANCHO_TABLERO // TAM_CELDA
 
 tablero = pygame.display.set_mode((ANCHO_TABLERO, ALTO_TABLERO))
-pygame.display.set_mode(600, 600)
+
 
 Verde = (0, 128, 0)
 Morado = (128, 0, 128)
