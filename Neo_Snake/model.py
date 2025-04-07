@@ -36,3 +36,13 @@ class Pera(Alimentos):
 class Ciruela(Alimentos):
         def __init__(self, ancho_tablero: int, alto_tablero: int):
             super().__init__("Ciruela", ancho_tablero, alto_tablero, Morado)
+
+Pera = Pera(ANCHO_CELDAS, ALTO_CELDAS)
+Ciruela = Ciruela(ANCHO_CELDAS, ALTO_CELDAS)
+
+run=True
+while run:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT: run = False
+
+pygame.quit()
