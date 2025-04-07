@@ -23,7 +23,7 @@ class Alimentos:
         self.color = color
         self.nueva_posicion()
     def nueva_posicion(self):
-        self.x = random.randint(0, self.ancho_tabelro - 1)
+        self.x = random.randint(0, self.ancho_tablero - 1)
         self.y = random.randint(0, self.alto_tablero - 1)
     def dibujar(self, tablero: int):
         rect = pygame.Rect(self.x * TAM_CELDA, self.y * TAM_CELDA, TAM_CELDA, TAM_CELDA)
