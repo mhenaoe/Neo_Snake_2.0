@@ -18,7 +18,7 @@ Morado = (128, 0, 128)
 class Alimentos:
     def __init__(self, tipo: str, ancho_tablero: int, alto_tablero: int, color: int):
         self.tipo = tipo
-        self.ancho_tabelro = ancho_tablero
+        self.ancho_tablero = ancho_tablero
         self.alto_tablero = alto_tablero
         self.color = color
         self.nueva_posicion()
