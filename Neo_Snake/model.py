@@ -14,6 +14,7 @@ NEGRO = (0, 0, 0)
 VERDE = (0, 128, 0)
 MORADO = (128, 0, 128)
 AMARILLO = (255, 255, 0)
+BLANCO = (255, 255, 255)
 
 class Alimentos:
     def __init__(self, tipo: str, ancho_tablero: int, alto_tablero: int, color):
@@ -122,6 +123,27 @@ class Serpiente:
 
         return False
 
+class Obstaculo:
+    def __init__(self, ancho_tablero, alto_tablero, tam_celda):
+        self.ancho_tablero = ancho_tablero
+        self.alto_tablero = alto_tablero
+        self.tam_celda = tam_celda
+        self.x = random.randint(0, ancho_tablero - 1)
+        self.y = random.randint(0, alto_tablero - 1)
+        self.color = BLANCO
+
+    def dibujar(self, superficie):
+        rect = pygame.Rect(
+            self.x * self.tam_celda, self.y * self.tam_celda,
+            self.tam_celda, self.tam_celda
+        )
+        pygame.draw.rect(superficie, self.color, rect)
+
+obstaculos = []
+for _ in range(5):
+    obstaculo = Obstaculo(ANCHO_CELDAS, ALTO_CELDAS, TAM_CELDA)
+    obstaculos.append(obstaculo)
+
 pantalla = pygame.display.set_mode((ANCHO, ALTO))
 pygame.display.set_caption("Neo-Snake con Frutas")
 clock = pygame.time.Clock()
@@ -158,7 +180,6 @@ while corriendo:
         pygame.Rect(x * TAM_CELDA, y * TAM_CELDA, TAM_CELDA, TAM_CELDA)
     )
 
-
     for x, y in serpiente.cuerpo.segmentos:
         pygame.draw.rect(
             pantalla,
@@ -166,6 +187,8 @@ while corriendo:
             pygame.Rect(x * TAM_CELDA, y * TAM_CELDA, TAM_CELDA, TAM_CELDA)
         )
 
+    for obstaculo in obstaculos:
+        obstaculo.dibujar(pantalla)
 
     pera.dibujar(pantalla)
     ciruela.dibujar(pantalla)
