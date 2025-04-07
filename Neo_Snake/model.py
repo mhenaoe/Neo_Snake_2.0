@@ -48,4 +48,46 @@ class Cola:
     def actualizar(self, nueva_posicion):
         self.posicion = nueva_posicion
 
+class Serpiente:
+    def __init__(self):
+        self.cabeza = Cabeza(5, 5)
+        self.cuerpo = Cuerpo()
+        self.cola = Cola()
+        self.longitud = 1
 
+    def mover(self):
+        pos_anterior = self.cabeza.posicion
+        self.cabeza.mover()
+        self.cuerpo.mover(pos_anterior)
+        if len(self.cuerpo.segmentos) == self.longitud - 1 and self.cuerpo.segmentos:
+            self.cola.actualizar(self.cuerpo.segmentos[-1])
+
+    def cambiar_direccion(self, nueva_direccion):
+        self.cabeza.cambiar_direccion(nueva_direccion)
+
+    def crecer(self):
+        self.longitud += 1
+        self.cuerpo.crecer()
+
+    def obtener_posiciones(self):
+        return [self.cabeza.posicion] + self.cuerpo.segmentos
+
+    def colisionar(self, ancho_celdas, alto_celdas, obstaculos=None):
+        if obstaculos is None:
+            obstaculos = []
+
+        x, y = self.cabeza.posicion
+
+        if not (0 <= x < ancho_celdas and 0 <= y <alto_celdas):
+            return True
+
+        if self.cabeza.posicion in self.cuerpo.segmentos:
+            return True
+
+        if self.cabeza.posicion in self.cuerpo.segmentos:
+            return True
+
+        if self.cabeza.posicion in obstaculos:
+            return True
+
+        return False
