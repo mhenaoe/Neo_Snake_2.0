@@ -22,3 +22,6 @@ class Alimentos:
         self.alto_tablero = alto_tablero
         self.color = color
         self.nueva_posicion()
+    def nueva_posicion(self):
+        self.x = random.randint(0, self.ancho_tabelro - 1)
+        self.y = random.randint(0, self.alto_tablero - 1)
