@@ -26,3 +26,17 @@ class Cabeza:
         opuestos = {"ARRIBA": "ABAJO", "ABAJO": "ARRIBA", "IZQUIERDA": "DERECHA", "DERECHA": "IZQUIERDA"}
         if nueva_direccion != opuestos.get(self.direccion, None):
             self.direccion = nueva_direccion
+
+class Cuerpo:
+
+    def __init__(self):
+        self.segmentos = []
+
+    def mover(self, nueva_posicion):
+        self.segmentos.insert(0, nueva_posicion)
+        if len(self.segmentos) > 1:
+            self.segmentos.pop()
+
+    def crecer(self):
+        if self.segmentos:
+            self.segmentos.append(self.segmentos[-1])
