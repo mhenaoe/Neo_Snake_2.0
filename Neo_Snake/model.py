@@ -1,3 +1,8 @@
+import random
+import pygame
+
+pygame.init()
+
 import pygame
 import random
 
@@ -44,5 +49,10 @@ run=True
 while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: run = False
+
+tablero.fill((0, 0, 0))
+Pera.dibujar(tablero)
+Ciruela.dibujar(tablero)
+pygame.display.flip()
 
 pygame.quit()
